@@ -20,6 +20,10 @@ export interface JWTPayload {
   email: string;
   role: string;
   type: 'access' | 'refresh';
+  exp?: number; // Expiration time (added by JWT)
+  iat?: number; // Issued at (added by JWT)
+  iss?: string; // Issuer (added by JWT)
+  aud?: string; // Audience (added by JWT)
 }
 
 /**
@@ -63,7 +67,7 @@ export class JWTUtil {
       };
 
       const options: SignOptions = {
-        expiresIn: expiresIn || JWT_CONFIG.accessExpiresIn,
+        expiresIn: (expiresIn || JWT_CONFIG.accessExpiresIn) as string | number,
         issuer: JWT_CONFIG.issuer,
         audience: JWT_CONFIG.audience,
       };
@@ -92,7 +96,7 @@ export class JWTUtil {
       };
 
       const options: SignOptions = {
-        expiresIn: expiresIn || JWT_CONFIG.refreshExpiresIn,
+        expiresIn: (expiresIn || JWT_CONFIG.refreshExpiresIn) as string | number,
         issuer: JWT_CONFIG.issuer,
         audience: JWT_CONFIG.audience,
       };

@@ -209,7 +209,7 @@ export class ErrorHandler {
     fn: (req: unknown, res: unknown, next: unknown) => Promise<unknown>
   ): (req: unknown, res: unknown, next: unknown) => void {
     return (req: unknown, res: unknown, next: unknown): void => {
-      Promise.resolve(fn(req, res, next)).catch(next);
+      Promise.resolve(fn(req, res, next)).catch(next as (reason: any) => PromiseLike<never>);
     };
   }
 }
