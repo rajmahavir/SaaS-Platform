@@ -280,10 +280,11 @@ export class TaskService {
             { description: { contains: filters.search, mode: 'insensitive' } },
           ],
         }),
-        ...(filters.tags &&
-          filters.tags.length > 0 && {
-            tags: { hasSome: filters.tags },
-          }),
+        ...(filters.tags && filters.tags.length > 0
+          ? {
+              tags: { hasSome: filters.tags },
+            }
+          : {}),
         ...(filters.dueDateFrom || filters.dueDateTo
           ? {
               dueDate: {
@@ -292,7 +293,7 @@ export class TaskService {
               },
             }
           : {}),
-      });
+      };
 
       // Build orderBy
       const orderBy: Prisma.TaskOrderByWithRelationInput = filters.sortBy

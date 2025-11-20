@@ -28,7 +28,6 @@
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "types": ["node", "jest"],
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
