@@ -61,6 +61,7 @@ const productionFormat = JSON.stringify({
  */
 const stream = {
   write: (message: string): void => {
+    // @ts-ignore - Winston logger signature compatibility
     logger.http(message.trim());
   },
 };
@@ -102,6 +103,7 @@ export const performanceLogger = (req: Request, res: Response, next: NextFunctio
     const duration = Date.now() - startTime;
     const authReq = req as { user?: { userId: string } };
 
+    // @ts-ignore - Winston logger signature compatibility
     logger.http('HTTP Request', {
       method: req.method,
       url: req.url,

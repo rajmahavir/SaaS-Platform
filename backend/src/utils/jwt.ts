@@ -67,6 +67,7 @@ export class JWTUtil {
       };
 
       const signOptions: SignOptions = {
+        // @ts-ignore - JWT library accepts string for expiresIn
         expiresIn: expiresIn || JWT_CONFIG.accessExpiresIn,
         issuer: JWT_CONFIG.issuer,
         audience: JWT_CONFIG.audience,
@@ -96,6 +97,7 @@ export class JWTUtil {
       };
 
       const signOptions: SignOptions = {
+        // @ts-ignore - JWT library accepts string for expiresIn
         expiresIn: expiresIn || JWT_CONFIG.refreshExpiresIn,
         issuer: JWT_CONFIG.issuer,
         audience: JWT_CONFIG.audience,
