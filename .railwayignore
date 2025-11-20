@@ -1,0 +1,39 @@
+# Development files
+node_modules/
+*.log
+npm-debug.log*
+.env
+.env.local
+
+# Test files
+coverage/
+*.test.ts
+*.spec.ts
+tests/
+
+# Documentation
+docs/
+*.md
+!RAILWAY_DEPLOYMENT.md
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build artifacts (will be rebuilt)
+backend/dist/
+backend/build/
+
+# Docker files (not needed for Railway)
+docker-compose.yml
+Dockerfile
+.dockerignore
+
+# CI/CD
+.github/
