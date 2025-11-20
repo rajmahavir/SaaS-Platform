@@ -13,4 +13,4 @@ cmds = [
 ]
 
 [start]
-cmd = "cd backend && npm run migrate && npm start"
+cmd = "cd backend && npm start"

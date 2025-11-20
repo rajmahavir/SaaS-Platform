@@ -127,16 +127,27 @@ class Server {
    */
   private async connectServices(): Promise<void> {
     try {
-      // Connect to PostgreSQL
-      await connectDatabase();
+      // Connect to PostgreSQL (only if DATABASE_URL is set)
+      if (process.env.DATABASE_URL) {
+        await connectDatabase();
+        logger.info('Database connected');
+      } else {
+        logger.warn('DATABASE_URL not set - running without database');
+      }
 
-      // Connect to Redis
-      await connectRedis();
+      // Connect to Redis (only if Redis config is set)
+      if (process.env.REDIS_HOST) {
+        await connectRedis();
+        logger.info('Redis connected');
+      } else {
+        logger.warn('REDIS_HOST not set - running without Redis');
+      }
 
-      logger.info('All services connected successfully');
+      logger.info('Services initialization completed');
     } catch (error) {
       logger.error('Failed to connect services', error as Error);
-      throw error;
+      logger.warn('Continuing without full service connectivity');
+      // Don't throw - allow server to start anyway
     }
   }
 
@@ -176,10 +187,14 @@ class Server {
 
         try {
           // Close database connections
-          await disconnectDatabase();
+          if (process.env.DATABASE_URL) {
+            await disconnectDatabase();
+          }
 
           // Close Redis connection
-          await disconnectRedis();
+          if (process.env.REDIS_HOST) {
+            await disconnectRedis();
+          }
 
           logger.info('All connections closed successfully');
           process.exit(0);
