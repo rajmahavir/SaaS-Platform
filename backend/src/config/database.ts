@@ -70,15 +70,15 @@ export const getPrismaClient = (): PrismaClient => {
     // Set up logging for Prisma events
     if (config.enableLogging) {
       prisma.$on('query' as never, (e: unknown) => {
-        logger.debug('Prisma Query', e);
+        logger.debug('Prisma Query', e as Record<string, unknown>);
       });
 
       prisma.$on('error' as never, (e: unknown) => {
-        logger.error('Prisma Error', e);
+        logger.error('Prisma Error', e as Error);
       });
 
       prisma.$on('warn' as never, (e: unknown) => {
-        logger.warn('Prisma Warning', e);
+        logger.warn('Prisma Warning', e as Record<string, unknown>);
       });
     }
 
@@ -100,7 +100,7 @@ export const connectDatabase = async (): Promise<void> => {
     await client.$queryRaw`SELECT 1`; // Test query to verify connection
     logger.info('Database connection verified');
   } catch (error) {
-    logger.error('Failed to connect to database:', error);
+    logger.error('Failed to connect to database:', error as Error);
     throw error;
   }
 };
@@ -117,7 +117,7 @@ export const disconnectDatabase = async (): Promise<void> => {
       logger.info('Database connection closed');
     }
   } catch (error) {
-    logger.error('Error disconnecting from database:', error);
+    logger.error('Error disconnecting from database:', error as Error);
     throw error;
   }
 };
@@ -133,7 +133,7 @@ export const isDatabaseHealthy = async (): Promise<boolean> => {
     await client.$queryRaw`SELECT 1`;
     return true;
   } catch (error) {
-    logger.error('Database health check failed:', error);
+    logger.error('Database health check failed:', error as Error);
     return false;
   }
 };
@@ -154,7 +154,7 @@ export const executeTransaction = async <T>(
       return await callback(tx as PrismaClient);
     });
   } catch (error) {
-    logger.error('Transaction failed:', error);
+    logger.error('Transaction failed:', error as Error);
     throw error;
   }
 };

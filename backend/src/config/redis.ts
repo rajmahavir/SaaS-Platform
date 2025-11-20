@@ -98,7 +98,7 @@ export const connectRedis = async (): Promise<void> => {
     await client.ping();
     logger.info('Redis connection established');
   } catch (error) {
-    logger.error('Failed to connect to Redis:', error);
+    logger.error('Failed to connect to Redis:', error as Error);
     throw error;
   }
 };
@@ -114,7 +114,7 @@ export const disconnectRedis = async (): Promise<void> => {
       logger.info('Redis connection closed');
     }
   } catch (error) {
-    logger.error('Error disconnecting from Redis:', error);
+    logger.error('Error disconnecting from Redis:', error as Error);
     throw error;
   }
 };
@@ -130,7 +130,7 @@ export const isRedisHealthy = async (): Promise<boolean> => {
     const result = await client.ping();
     return result === 'PONG';
   } catch (error) {
-    logger.error('Redis health check failed:', error);
+    logger.error('Redis health check failed:', error as Error);
     return false;
   }
 };
