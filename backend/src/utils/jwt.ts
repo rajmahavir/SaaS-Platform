@@ -66,11 +66,13 @@ export class JWTUtil {
         type: 'access',
       };
 
-      const token = jwt.sign(tokenPayload, JWT_CONFIG.accessSecret, {
+      const signOptions: SignOptions = {
         expiresIn: expiresIn || JWT_CONFIG.accessExpiresIn,
         issuer: JWT_CONFIG.issuer,
         audience: JWT_CONFIG.audience,
-      });
+      };
+
+      const token = jwt.sign(tokenPayload, JWT_CONFIG.accessSecret, signOptions);
       logger.debug('Access token generated', { userId: payload.userId });
       return token;
     } catch (error) {
@@ -93,11 +95,13 @@ export class JWTUtil {
         type: 'refresh',
       };
 
-      const token = jwt.sign(tokenPayload, JWT_CONFIG.refreshSecret, {
+      const signOptions: SignOptions = {
         expiresIn: expiresIn || JWT_CONFIG.refreshExpiresIn,
         issuer: JWT_CONFIG.issuer,
         audience: JWT_CONFIG.audience,
-      });
+      };
+
+      const token = jwt.sign(tokenPayload, JWT_CONFIG.refreshSecret, signOptions);
       logger.debug('Refresh token generated', { userId: payload.userId });
       return token;
     } catch (error) {
