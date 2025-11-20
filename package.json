@@ -1,0 +1,24 @@
+{
+  "name": "saas-platform",
+  "version": "1.0.0",
+  "description": "SaaS Platform for Railway.com deployment",
+  "scripts": {
+    "build": "cd backend && npm ci && npm run prisma:generate && npm run build",
+    "start": "cd backend && npm run migrate && npm start",
+    "dev": "cd backend && npm run dev"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "keywords": [
+    "saas",
+    "railway",
+    "nodejs",
+    "typescript",
+    "postgresql",
+    "redis"
+  ],
+  "author": "rajmahavir",
+  "license": "MIT"
+}
