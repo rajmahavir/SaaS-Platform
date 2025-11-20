@@ -61,7 +61,7 @@ const productionFormat = JSON.stringify({
  */
 const stream = {
   write: (message: string): void => {
-    logger.http(message.trim(), {});
+    logger.http(message.trim());
   },
 };
 
@@ -110,7 +110,7 @@ export const performanceLogger = (req: Request, res: Response, next: NextFunctio
       ip: req.ip,
       userAgent: req.headers['user-agent'],
       userId: authReq.user?.userId,
-    }, {});
+    });
 
     // Log slow requests
     if (duration > 3000) {
